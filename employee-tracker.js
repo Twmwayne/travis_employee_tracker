@@ -628,3 +628,72 @@ function viewAllEmpByMngr(){
         });
     });
 }
+
+
+// Delete employee
+function deleteEmp(){
+
+    // Create global employee array
+    let employeeArr = [];
+
+    // Create connection using promise-sql
+    promisemysql.createConnection(connectionProperties
+    ).then((conn) => {
+
+        // Query all employees
+        return  conn.query("SELECT employee.id, concat(employee.first_name, ' ' ,  employee.last_name) AS employee FROM employee ORDER BY Employee ASC");
+    }).then((employees) => {
+
+        // Place all employees in array
+        for (i=0; i < employees.length; i++){
+            employeeArr.push(employees[i].employee);
+        }
+
+        inquirer.prompt([
+            {
+                // prompt user of all employees
+                name: "employee",
+                type: "list",
+                message: "Who would you like to delete?",
+                choices: employeeArr
+            }, {
+                // confirm delete of employee
+                name: "yesNo",
+                type: "list",
+                message: "Confirm deletion",
+                choices: ["NO", "YES"]
+            }]).then((answer) => {
+
+                if(answer.yesNo == "YES"){
+                    let employeeID;
+
+                    // if confirmed, get ID of employee selected
+                    for (i=0; i < employees.length; i++){
+                        if (answer.employee == employees[i].employee){
+                            employeeID = employees[i].id;
+                        }
+                    }
+                    
+                    // deleted selected employee
+                    connection.query(`DELETE FROM employee WHERE id=${employeeID};`, (err, res) => {
+                        if(err) return err;
+
+                        // confirm deleted employee
+                        console.log(`\n EMPLOYEE '${answer.employee}' DELETED...\n `);
+                        
+                        // back to main menu
+                        mainMenu();
+                    });
+                } 
+                else {
+                    
+                    // if not confirmed, go back to main menu
+                    console.log(`\n EMPLOYEE '${answer.employee}' NOT DELETED...\n `);
+
+                    // back to main menu
+                    mainMenu();
+                }
+                
+            });
+    });
+}
