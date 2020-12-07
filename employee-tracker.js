@@ -52,3 +52,54 @@ function mainMenu(){
         "View department budgets"
       ]
     })
+
+    .then((answer) => {
+
+        // Switch case depending on user option
+        switch (answer.action) {
+            case "View all employees":
+                viewAllEmp();
+                break;
+
+            case "View all employees by department":
+                viewAllEmpByDept();
+                break;
+
+            case "View all employees by role":
+                viewAllEmpByRole();
+                break;
+
+            case "Add employee":
+                addEmp();
+                break;
+
+            case "Add department":
+                addDept();
+                break;
+            case "Add role":
+                addRole();
+                break;
+            case "Update employee role":
+                updateEmpRole();
+                break;
+            case "Update employee manager":
+                updateEmpMngr();
+                break;
+            case "View all employees by manager":
+                viewAllEmpByMngr();
+                break;
+            case "Delete employee":
+                deleteEmp();
+                break;
+            case "View department budgets":
+                viewDeptBudget();
+                break;
+            case "Delete role":
+                deleteRole();
+                break;
+            case "Delete department":
+                deleteDept();
+                break;
+        }
+    });
+}
