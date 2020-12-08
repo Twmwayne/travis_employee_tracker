@@ -15,3 +15,7 @@ Run npm install to install all dependencies
 Run schema.sql in MySQLWorkbench
 (Optional) Run seeds.sql in MySQLWorkbench
 Edit MySQL connection properties in the connectionProperties object in employee-tracker.js
+
+
+# Github: https://github.com/Twmwayne/travis_employee_tracker
+# Video: https://drive.google.com/file/d/1Zvz9-fOhFgVl9YTIPmGytal4o9VH0h9h/view
